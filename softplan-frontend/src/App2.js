@@ -4,10 +4,10 @@ import { createStore, applyMiddleware } from "redux";
 import ReduxThunk from "redux-thunk";
 import reducers from "./reducers";
 import Routes from "./routes/Routes";
-const App = () => (
-  <Provider store={createStore(reducers, {}, applyMiddleware(ReduxThunk))}>
-    <Routes />
-  </Provider>
+const App2 = () => (
+  <div>
+    <p>oi</p>
+  </div>
 );
 
-export default App;
+export default App2;
