@@ -1,11 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import App2 from "../App2";
+import BuscarProcessos from "../containers/BuscarProcessos";
 
 export default props => (
   <Router>
     <div>
-      <Route exact path="/" component={App2} />
+      <Route exact path="/" component={BuscarProcessos} />
     </div>
   </Router>
 );
