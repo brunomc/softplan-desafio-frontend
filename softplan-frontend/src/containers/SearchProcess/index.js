@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import SearchIcon from "@material-ui/icons/Search";
+import { withRouter } from "react-router";
 import { Title } from "./styles";
 import {
   AppWrapperCenter,
@@ -10,17 +11,21 @@ import {
   SpaceLine30
 } from "../../styles/global";
 import { queryProcesses, changeQuery } from "../../actions/SearchProcessAction";
-import { Redirect } from "react-router";
 class SearchProcess extends Component {
-  _searchProcess(process) {
-    if (process) {
-      Redirect.call("/listaProcessos");
+  async _searchProcess() {
+    if (this.props.query) {
+      await this.props.queryProcesses(this.props.query);
+      this.props.history.push("/listProcess");
+      console.log(this.props);
     }
   }
-  _keyPress(e, process) {
+  _changQuery(query) {
+    this.props.changeQuery(query.target.value);
+  }
+  _keyPress(e) {
     if (e.keyCode === 13) {
-      if (process) {
-        this._searchProcess(process);
+      if (this.props.query) {
+        this._searchProcess();
       }
     }
   }
@@ -32,13 +37,18 @@ class SearchProcess extends Component {
         <SearchInput>
           <input
             name="query"
-            onChange={console.log(this.props)}
-            onKeyDown={this._keyPress}
+            onChange={query => {
+              this._changQuery(query);
+            }}
+            value={this.props.query}
+            onKeyDown={e => {
+              this._keyPress(e);
+            }}
             type="text"
           />
           <Magnifier
             onClick={() => {
-              this._searchProcess(this.props.query);
+              this._searchProcess();
             }}
           >
             <SearchIcon />
@@ -46,7 +56,8 @@ class SearchProcess extends Component {
         </SearchInput>
         <SpaceLine30 />
         <p>
-          Você pode criar um novo processo <a href="#">clicando aqui</a>
+          Você pode criar um novo processo{" "}
+          <a href="http://www.google.com">clicando aqui</a>
         </p>
       </AppWrapperCenter>
     );
@@ -60,7 +71,9 @@ const mapDispatchToProps = {
   queryProcesses,
   changeQuery
 };
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SearchProcess);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(SearchProcess)
+);

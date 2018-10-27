@@ -1,10 +1,17 @@
 import React, { Component } from "react";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import { Container, ContainerCard, CardX, ImgCard, Subtitle } from "./styles";
+import {
+  Container,
+  ContainerCard,
+  CardX,
+  ImgCard,
+  Subtitle,
+  TableCellCustom,
+  TableCellCustomDesc
+} from "./styles";
 
 export default class CardComponent extends Component {
   render() {
@@ -15,41 +22,45 @@ export default class CardComponent extends Component {
             <ImgCard
               src={require("../../assets/images/cat.png")}
               alt="No Image"
-              height="80"
+              height="90"
               width="80"
             />
 
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>
+                  <TableCellCustom>
                     <Subtitle>Número</Subtitle>
-                  </TableCell>
-                  <TableCell>
+                  </TableCellCustom>
+                  <TableCellCustom>
                     <Subtitle>Assunto</Subtitle>
-                  </TableCell>
-                  <TableCell>
+                  </TableCellCustom>
+                  <TableCellCustom>
                     <Subtitle>Interessado</Subtitle>
-                  </TableCell>
-                  <TableCell>
+                  </TableCellCustom>
+                  <TableCellCustomDesc>
                     <Subtitle>Descrição</Subtitle>
-                  </TableCell>
+                  </TableCellCustomDesc>
                 </TableRow>
               </TableHead>
               <TableBody>
                 <TableRow>
-                  <TableCell>
-                    <p>SOFT 001/2018</p>
-                  </TableCell>
-                  <TableCell>
-                    <p>In vestibulum dis iarok</p>
-                  </TableCell>
-                  <TableCell>
-                    <p>Danilo Barbosa Correia</p>
-                  </TableCell>
-                  <TableCell>
-                    <p>Etiam aliquan socio</p>
-                  </TableCell>
+                  <TableCellCustom>
+                    <p>{this.props.data.numero}</p>
+                  </TableCellCustom>
+                  <TableCellCustom>
+                    <p>{this.props.data.assunto}</p>
+                  </TableCellCustom>
+                  <TableCellCustom>
+                    <p>
+                      {this.props.data.interessados.map(interessado => (
+                        <span key={interessado}>{interessado}</span>
+                      ))}
+                    </p>
+                  </TableCellCustom>
+                  <TableCellCustomDesc>
+                    <p>{this.props.data.descricao}</p>
+                  </TableCellCustomDesc>
                 </TableRow>
               </TableBody>
             </Table>
