@@ -2,8 +2,14 @@ import styled from "styled-components";
 import { colorize } from "./colors";
 import "typeface-montserrat";
 
-export const AppWrapper = styled.div`
+export const AppWrapperCenter = styled.div`
   text-align: center;
+  font-family: "Montserrat";
+  color: ${colorize.black54};
+`;
+export const AppWrapper = styled.div`
+  font-family: "Montserrat";
+  color: ${colorize.black54};
 `;
 export const SearchInput = styled.div`
   position: relative;
@@ -28,7 +34,15 @@ export const Magnifier = styled.button`
   outline: none;
   color: ${colorize.black54};
 `;
-export const SpaceLine = styled.div`
+export const SpaceLine150 = styled.div`
   height: 150px;
-  background-color: red;
+`;
+export const SpaceLine30 = styled.div`
+  height: 30px;
+`;
+export const SpaceLine20 = styled.div`
+  height: 20px;
+`;
+export const SpaceLine10 = styled.div`
+  height: 10px;
 `;
