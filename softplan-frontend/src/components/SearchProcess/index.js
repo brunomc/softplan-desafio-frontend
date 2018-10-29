@@ -8,15 +8,17 @@ import {
   SearchInput,
   Magnifier,
   SpaceLine150,
-  SpaceLine30
+  SpaceLine30,
+  ButtonCustom
 } from "../../styles/global";
 import { queryProcesses, changeQuery } from "../../actions/SearchProcessAction";
+import { setActivePage } from "../../actions/RouterAction";
+import { changeDialogForm } from "../../actions/DialogFormAction";
 class SearchProcess extends Component {
   async _searchProcess() {
     if (this.props.query) {
       await this.props.queryProcesses(this.props.query);
-      this.props.history.push("/listProcess");
-      console.log(this.props);
+      await this.props.setActivePage("list");
     }
   }
   _changQuery(query) {
@@ -36,6 +38,7 @@ class SearchProcess extends Component {
         <Title>Busca de processos</Title>
         <SearchInput>
           <input
+            autoFocus
             name="query"
             onChange={query => {
               this._changQuery(query);
@@ -57,7 +60,14 @@ class SearchProcess extends Component {
         <SpaceLine30 />
         <p>
           Você pode criar um novo processo{" "}
-          <a href="http://www.google.com">clicando aqui</a>
+          <ButtonCustom
+            href="#"
+            onClick={() => {
+              this.props.changeDialogForm(true);
+            }}
+          >
+            clicando aqui
+          </ButtonCustom>
         </p>
       </AppWrapperCenter>
     );
@@ -65,11 +75,14 @@ class SearchProcess extends Component {
 }
 const mapStateToProps = state => ({
   processes: state.SearchProcessReducer.processQueryResult,
-  query: state.SearchProcessReducer.query
+  query: state.SearchProcessReducer.query,
+  page: state.RouterReducer.page
 });
 const mapDispatchToProps = {
   queryProcesses,
-  changeQuery
+  changeQuery,
+  setActivePage,
+  changeDialogForm
 };
 export default withRouter(
   connect(

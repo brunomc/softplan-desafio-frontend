@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import SearchIcon from "@material-ui/icons/Search";
 import { connect } from "react-redux";
-import { withRouter } from "react-router";
-import { SearchInput, Title2, ContainerSearch, ButtonNovo } from "./styles";
+import { SearchInput, Title2, ButtonNovo } from "./styles";
 import { queryProcesses, changeQuery } from "../../actions/SearchProcessAction";
+import { setActivePage } from "../../actions/RouterAction";
+import { changeDialogForm } from "../../actions/DialogFormAction";
 import {
   AppWrapper,
   AppWrapperCenter,
   Magnifier,
-  SpaceLine20
+  SpaceLine20,
+  ContainerSearch
 } from "../../styles/global";
 import CardComponent from "../../components/CardComponent";
 
@@ -16,8 +18,6 @@ class ListProcess extends Component {
   async _searchProcess() {
     if (this.props.query) {
       await this.props.queryProcesses(this.props.query);
-      this.props.history.push("/listProcess");
-      console.log(this.props);
     }
   }
   _changQuery(query) {
@@ -29,6 +29,10 @@ class ListProcess extends Component {
         this._searchProcess();
       }
     }
+  }
+  componentWillMount() {
+    this._searchProcess();
+    this.render();
   }
   render() {
     return (
@@ -56,7 +60,14 @@ class ListProcess extends Component {
               <SearchIcon />
             </Magnifier>
           </SearchInput>
-          <ButtonNovo variant="outlined">Novo</ButtonNovo>
+          <ButtonNovo
+            variant="outlined"
+            onClick={() => {
+              this.props.changeDialogForm(true);
+            }}
+          >
+            Novo
+          </ButtonNovo>
         </ContainerSearch>
         <AppWrapperCenter>
           {this.props.processes
@@ -73,10 +84,13 @@ const mapStateToProps = state => ({
   processes: state.SearchProcessReducer.processQueryResult,
   query: state.SearchProcessReducer.query
 });
-const mapDispatchToProps = { queryProcesses, changeQuery };
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(ListProcess)
-);
+const mapDispatchToProps = {
+  queryProcesses,
+  changeQuery,
+  setActivePage,
+  changeDialogForm
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ListProcess);

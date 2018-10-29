@@ -3,6 +3,8 @@ import { colorize } from "./colors";
 import "typeface-montserrat";
 
 export const AppWrapperCenter = styled.div`
+  display: "flex";
+  flex-direction: "row";
   text-align: center;
   font-family: "Montserrat";
   color: ${colorize.black54};
@@ -10,6 +12,12 @@ export const AppWrapperCenter = styled.div`
 export const AppWrapper = styled.div`
   font-family: "Montserrat";
   color: ${colorize.black54};
+`;
+export const ContainerSearch = styled.div`
+  display: flex;
+  flex-direction: "row";
+  margin-left: 2%;
+  color: ${colorize.primary};
 `;
 export const SearchInput = styled.div`
   position: relative;
@@ -45,4 +53,7 @@ export const SpaceLine20 = styled.div`
 `;
 export const SpaceLine10 = styled.div`
   height: 10px;
+`;
+export const ButtonCustom = styled.a`
+  text-decoration: none;
 `;

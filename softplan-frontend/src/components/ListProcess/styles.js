@@ -25,12 +25,6 @@ export const SearchInput = styled.div`
   }
 `;
 
-export const ContainerSearch = styled.div`
-  display: flex;
-  flex-direction: "row";
-  margin-left: 2%;
-  color: ${colorize.primary};
-`;
 export const ButtonNovo = styled(Button)`
   && {
     font-family: "Montserrat";
